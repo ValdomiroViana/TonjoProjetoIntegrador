@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import br.edu.bsi.sistema.dao.CidadeDAO;
 import br.edu.ifpr.projeto.domain.Cidade;
 import br.edu.ifpr.projeto.domain.Estado;
 
@@ -48,5 +49,22 @@ public class CidadeDAOTest {
 		for (Cidade cidade : cidades) {
 			System.out.println("Nome: " +cidade.getNome());
 		}
+	}
+	@Test
+	@Ignore
+	public void excluir(){
+		Long codigo = 1L;
+		
+		CidadeDAO cidadeDAO = new CidadeDAO();
+		Cidade cidade = cidadeDAO.buscar(codigo);
+		
+		cidadeDAO.excluir(cidade);
+		
+		System.out.println("Cidade Removida");
+		System.out.println("Código da Cidade: " + cidade.getCodigo());
+		System.out.println("Nome da Cidade: " + cidade.getNome());
+		System.out.println("Código do Estado: " + cidade.getEstado().getCodigo());
+		System.out.println("Sigla do Estado: " + cidade.getEstado().getSigla());
+		System.out.println("Nome do Estado: " + cidade.getEstado().getNome());
 	}
 }
