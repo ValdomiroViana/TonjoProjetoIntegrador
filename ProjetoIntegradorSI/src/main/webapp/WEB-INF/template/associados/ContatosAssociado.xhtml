@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:panelGrid columns="4" style="width: 100%;" columnClasses="rotulo, campo, rotulo">
+		<p:outputLabel value="Logradouro" for="logradouro" />
+		<p:inputText id="logradouro" size="70" value="#{cadastroAssociadoBean.associado.endereco.logradouro}" />
+		
+		<p:outputLabel value="Número" for="numero" />
+		<p:inputText id="numero" size="8" value="#{cadastroAssociadoBean.associado.endereco.numero}" />
+		
+		<p:outputLabel value="Bairro" for="bairro" />
+		<p:inputText id="bairro" size="34" value="#{cadastroAssociadoBean.associado.endereco.bairro}" />
+		
+		<p:outputLabel value="Complemento" for="complemento" />
+		<p:inputText id="complemento" size="70" value="#{cadastroAssociadoBean.associado.endereco.complemento}" />
+		
+		<p:outputLabel value="Estado" for="estado" />
+		<p:selectOneMenu id="estado" style="width: 250px;" >
+			<f:selectItem itemLabel="Selecione o estado" />
+			<f:selectItems value="#{estadoBean.estados}" var="estados" itemValue="#{estados}" itemLabel="#{estados.nome}  -  #{estados.sigla}" />
+			<p:ajax listener="#{cidadeBean.listarCidadesBean}" update="cidade" />
+		</p:selectOneMenu>
+				
+		<p:outputLabel value="Cidade" for="cidade" />
+		<p:selectOneMenu id="cidade" style="width: 250px;">
+			<f:selectItem itemLabel="Selecione a cidade" />
+			<f:selectItems value="#{cidadeBean.cidades}" var="cidades" itemValue="#{cidades}" itemLabel="#{cidades.nome}" />
+		</p:selectOneMenu>
+			
+		<p:outputLabel value="E-mail" for="email" />
+		<p:inputText id="email" size="34" value="#{cadastroAssociadoBean.associado.contato.email}" />
+
+		<p:outputLabel value="Telefone Residencial" for="telResidencial" />
+		<p:inputMask size="15" id="telResidencial" mask="(99) 9999 9999?9" value="#{cadastroAssociadoBean.associado.contato.telefoneResidencial}" />
+		
+		<p:outputLabel value="Telefone Comercial" for="telComercial" />
+		<p:inputMask size="15" id="telComercial" mask="(99) 9999 9999?9" value="#{cadastroAssociadoBean.associado.contato.telefoneComercial}" />
+		
+		<p:outputLabel value="Celular" for="telCelular" />
+		<p:inputMask size="15" id="telCelular" mask="(99) 9999 9999?9" value="#{cadastroAssociadoBean.associado.contato.telefoneCelular}" />
+	</p:panelGrid>
+</ui:composition>

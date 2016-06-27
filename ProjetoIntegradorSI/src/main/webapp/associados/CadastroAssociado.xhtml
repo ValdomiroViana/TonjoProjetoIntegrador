@@ -1,0 +1,76 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Cadastro de Associados</ui:define>
+
+	<ui:define name="corpo">
+	<f:metadata>
+			<f:event listener="#{cadastroAssociadoBean.novo}" type="preRenderView" />
+	</f:metadata>
+		<h:form id="frm">
+			<p:growl id="growl" showSummary="true" autoUpdate="true" life="5000" />
+			<h1>Novo associado</h1>
+
+			<!-- 	Toolbar  -->
+			<p:toolbar style="margin-top: 20px; padding: 8px;">
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/associados/CadastroAssociado" />
+					<p:commandButton value="Salvar" actionListener="#{cadastroAssociadoBean.salvar}" update=":frm:painel :frm:tabs" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisar" outcome="/associados/PesquisaAssociados" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<!-- 	PanelGrid -->
+			<p:panelGrid id="painel" columns="4" style="width: 100%; margin-top: 20px;" columnClasses="rotulo, campo, rotulo">
+				<p:outputLabel value="Nome" for="nome" />
+				<p:inputText size="60" maxlength="60" id="nome" value="#{cadastroAssociadoBean.associado.pessoa.nome}" />
+
+				<p:outputLabel value="Situação" for="situacao" />
+				<p:selectOneRadio id="situacao" value="#{cadastroAssociadoBean.associado.status}" >
+					<f:selectItem itemLabel="Ativo" itemValue="ATIVO" />
+					<f:selectItem itemLabel="Inativo" itemValue="INATIVO" />
+				</p:selectOneRadio>
+
+				<p:outputLabel value="Data da nascimento" for="dataNascimento" />
+				<p:calendar id="dataNascimento" size="10"  placeholder="Dia/Mês/Ano" mask="true" pattern="dd/MM/yyyy" value="#{cadastroAssociadoBean.associado.pessoa.dataNascimento}" />
+
+				<p:outputLabel value="Sexo" for="sexoPessoa" />
+				<p:selectOneRadio id="sexoPessoa" value="#{cadastroAssociadoBean.associado.pessoa.sexo}" >
+					<f:selectItem itemLabel="Masc" itemValue="MASCULINO" />
+					<f:selectItem itemLabel="Fem." itemValue="FEMININO" />
+				</p:selectOneRadio>
+
+				<p:outputLabel value="CPF" for="cpf" />
+				<p:inputMask size="14" id="cpf" mask="999.999.999-99" value="#{cadastroAssociadoBean.associado.cpf}" />
+
+				<p:outputLabel value="RG" for="rg" />
+				<p:inputMask size="14" id="rg" mask="99999999 ?9" value="#{cadastroAssociadoBean.associado.rg}" />
+			
+				<p:outputLabel value="Naturalidade (Cidade)" for="naturalCidade" />
+				<p:inputText size="40" maxlength="40" id="naturalCidade" value="#{cadastroAssociadoBean.associado.cidadeNaturalidade}" />
+				
+				<p:outputLabel value="Naturalidade (Estado)" for="naturalEstado" />
+				<p:inputText size="40" maxlength="40" id="naturalEstado" value="#{cadastroAssociadoBean.associado.estadoNaturalidade}" />
+			</p:panelGrid>
+			
+			<!--  Criando apenas a estrutura da TabView, sendo que os campos estarao em arquivos separados -->
+			<p:tabView style="margin-top: 30px" id="tabs" >
+				<p:tab title="Endereço e Contatos"  >
+					<ui:include src="/WEB-INF/template/associados/ContatosAssociado.xhtml"/>
+				</p:tab>
+				<p:tab title="Dependentes" >
+					<ui:include src="/WEB-INF/template/associados/DependentesAssociado.xhtml" />
+				</p:tab>
+				<p:tab title="Observações">
+					<ui:include src="/WEB-INF/template/associados/ObservacaoAssociado.xhtml"/>
+				</p:tab>
+			</p:tabView>		
+		</h:form>
+	</ui:define>
+</ui:composition>

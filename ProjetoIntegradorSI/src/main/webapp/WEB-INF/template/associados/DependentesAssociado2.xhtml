@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dataTable value="#{cadastroAssociadoBean.dependentes}" var="dependentes" id="tabelaDependentes">
+		<p:column headerText="Nome" style="width: 400px;">
+			<h:outputText value="Teste" />
+<!-- 			<h:outputText value="#{cadastroAssociadoBean.dependente.pessoa.nome}" /> -->
+		</p:column>
+
+		<p:column headerText="Data de Nasc." style="width: 100px; text-align: center;">
+		<h:outputText value="Teste" />
+<!-- 			<h:outputText value="#{cadastroAssociadoBean.dependente.pessoa.dataNascimento}" /> -->
+		</p:column>
+
+		<p:column headerText="Sexo" style="width: 100px; text-align: center;" for="sexoDependente">
+		<h:outputText value="Teste" />
+<!-- 			<h:outputText value="#{cadastroAssociadoBean.dependente.pessoa.sexo}" /> -->
+		</p:column>
+
+		<p:column headerText="Parentesco" style="width: 100px; text-align: center;">
+		<h:outputText value="Teste" />
+<!-- 			<h:outputText value="#{cadastroAssociadoBean.dependente.parentesco}" /> -->
+		</p:column>
+
+		<p:column headerText="Opções" style="width: 80px; text-align: center;">
+			<p:button icon="ui-icon-pencil" title="Editar" onclick="PF('adicionarDependente').show(); return false;" />
+			<p:commandButton icon="ui-icon-trash" title="Excluir" />
+		</p:column>
+	</p:dataTable>
+
+	<p:dialog header="Cadastro de dependentes" widgetVar="adicionarDependente" draggable="false" resizable="false"
+		modal="true" showEffect="bounce" hideEffect="scale" id="dialogEndereco">
+		<h:panelGroup id="inclusaoPanel">
+			<p:messages />
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Nome" />
+				<p:inputText size="50" />
+
+				<p:outputLabel value="Data de Nasc." />
+				<p:calendar id="dataNascDep" size="10" pattern="dd/MM/yyyy" mask="99/99/9999" />
+
+				<p:outputLabel value="Sexo" />
+				<p:selectOneMenu id="sexoDependente" style="width: 130px;">
+					<f:selectItem itemLabel="Selecione o sexo" />
+					<f:selectItem itemLabel="Masculino" />
+					<f:selectItem itemLabel="Feminino" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Parentesco" />
+				<p:selectOneMenu id="parentesco" style="width: 130px;">
+					<f:selectItem itemLabel="Selecione o parentesco" />
+					<f:selectItem itemLabel="Irmão(a)" />
+					<f:selectItem itemLabel="Filho(a)" />
+					<f:selectItem itemLabel="Cônjuge" />
+				</p:selectOneMenu>
+			</h:panelGrid>
+			<p:separator  />
+			<p:button value="Salvar" />
+			<p:button value="Cancelar"  onclick="PF('adicionarDependente').hide(); return false;" />
+		</h:panelGroup>
+	</p:dialog>
+
+
+	<p:toolbar style="margin-top: 20px; padding: 8px;">
+		<p:toolbarGroup align="right">
+			<p:commandButton value="Adicionar dependente" onclick="PF('adicionarDependente').show(); return false;" />
+		</p:toolbarGroup>
+	</p:toolbar>
+</ui:composition>

@@ -1,0 +1,91 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Mensalidades</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frmMensalidades">
+			<p:growl id="growl" showSummary="true" autoUpdate="true" life="5000" />
+			<h1>Mensalidades</h1>
+
+			<p:toolbar style="margin-top: 20px; padding: 8px;">
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar" id="botaoPesquisar" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" style="width: 100%; margin-top: 20px;"
+				columnClasses="rotulo">
+				<p:outputLabel value="Nome" for="nome" />
+				<p:inputText id="nome" size="60" />
+
+				<p:outputLabel value="Data" />
+				<h:panelGroup>
+					<p:calendar size="10" pattern="dd/MM/yyyy" />
+					<p:spacer width="20" height="10" />
+							a
+						<p:spacer width="20" height="10" />
+					<p:calendar size="10" pattern="dd/MM/yyyy" />
+				</h:panelGroup>
+
+				<p:outputLabel value="Situação" />
+				<p:selectManyCheckbox styleClass="checkbox">
+					<f:selectItem itemLabel="Pendente" />
+					<f:selectItem itemLabel="Pago" />
+					<f:selectItem itemLabel="Atrasado" />
+				</p:selectManyCheckbox>
+			</p:panelGrid>
+			
+			<p:dataTable id="mensalidadesTable"
+				value="#{mensalidadesBean.mensalidades}"
+				var="mensalidades" style="margin-top: 30px;"
+				emptyMessage="Nenhuma mensalidade encontrada." rows="20"
+				paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom">
+
+				<p:column headerText="Associado" >
+					<h:outputText value="Valdomiro Vianna" />
+				</p:column>
+				<p:column headerText="Vencimento" style="text-align: center; width: 100px;">
+					<h:outputText value="15/07/2016" />
+				</p:column>
+				<p:column headerText="Valor" style="text-align: center; width: 100px;" >
+					<h:outputText value="R$ 70,00" />
+				</p:column>
+				<p:column headerText="Situação" style="text-align: center; width: 140px;" >
+					<h:outputText value="PENDENTE" />
+				</p:column>
+				<p:column headerText="Pagamento" style="text-align: center; width: 100px;" >
+					<h:outputText value="10/07/2016" />
+				</p:column>
+				
+				<p:column style="width: 110px; text-align: center;">
+					<p:commandButton icon="ui-icon-mail-closed" title="Enviar e-mail de confirmação de pagamento" action="#{mensalidadesBean.enviar}"  />
+					<p:commandButton icon="ui-icon-check" title="Realizar Pagamento"
+						oncomplete="PF('confirmacaoPagamento').show();" process="@this"
+						update=":frmMensalidades:confirmacaoPagamentoDialog" />
+					<!-- 						Quando clicar no botão Excluir de um determinado item, a linha com os dados do produto será atribuido a "pesquisaProdutoBean.produtoSelecionado" -->
+					<!-- 						<f:setPropertyActionListener value="#{produto}" target="#{pesquisaProdutoBean.produtoSelecionado}" /> -->
+					<!-- 					</p:commandButton> -->
+				</p:column>
+			</p:dataTable>
+			
+			<!--  Função para chamar a tela de exclusão de Associados  -->
+			<p:confirmDialog header="Exclusão de produto"
+				message="Tem certeza que deseja realizar o pagamento da mensalidade do associado TAL?"
+				id="confirmacaoPagamentoDialog" widgetVar="confirmacaoPagamento"
+				showEffect="shake ">
+				<p:button value="Não"
+					onclick="PF('confirmacaoPagamento').hide(); return false;" />
+				<p:commandButton value="Sim"
+					oncomplete="PF('confirmacaoPagamento').hide();"
+					update=":frmMensalidades:mensalidadesTable" />
+			</p:confirmDialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

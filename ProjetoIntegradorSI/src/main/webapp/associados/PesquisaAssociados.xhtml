@@ -1,0 +1,177 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa de Associados</ui:define>
+
+	<ui:define name="corpo">
+		<f:metadata>
+			<f:event listener="#{pesquisaAssociadosBean.listar}" type="preRenderView" />
+		</f:metadata>
+		<h:form id="frmPesquisa">		
+			<p:growl id="growl" showSummary="true" autoUpdate="true" life="5000" />
+			<h1>Pesquisa de associados</h1>
+
+			<p:toolbar style="margin-top: 20px; padding: 8px;">
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar" id="botaoPesquisar" action="#{pesquisaAssociadosBean.listar}" update=":frmPesquisa:associadosTable" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/associados/CadastroAssociado" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" style="width: 100%; margin-top: 20px;" columnClasses="rotulo">
+				<p:outputLabel value="Nome" for="nomePesquisa" />
+				<p:inputText id="nomePesquisa" size="60" />
+
+				<p:outputLabel value="Status" />
+				<p:selectManyCheckbox styleClass="checkbox">
+					<f:selectItem itemLabel="Ativo" />
+					<f:selectItem itemLabel="Inativo" />
+				</p:selectManyCheckbox>
+			</p:panelGrid>
+
+			<p:dataTable id="associadosTable" value="#{pesquisaAssociadosBean.associadosFiltrados}" var="associados" 
+				style="margin-top: 30px;" emptyMessage="Nenhum associado encontrado." rows="10" paginator="true" 
+				paginatorAlwaysVisible="false" paginatorPosition="bottom">
+				<p:column headerText="Status"
+					style="text-align: center; width: 80px">
+					<h:outputText value="#{associados.status}" />
+				</p:column>
+				<p:column headerText="Nome" sortBy="#{associados.pessoa.nome}" >
+					<h:outputText value="#{associados.pessoa.nome}" />
+				</p:column>
+				<p:column headerText="Contatos" style="text-align: center; width: 330px;">
+					<h:outputText
+						value="#{associados.contato.telefoneResidencial}   -/-  #{associados.contato.telefoneComercial}  -/-  #{associados.contato.telefoneCelular}" />
+				</p:column>
+				<p:column headerText="E-mail"
+					style="text-align: center; width: 200px;">
+					<h:outputText value="#{associados.contato.email}" />
+				</p:column>
+				
+				
+				<p:column style="width: 110px; text-align: center;">
+					<p:commandButton icon="ui-icon-search" title="Mais informações"
+						onclick="PF('dadosAssociado').show(); return false;"
+						process="@this" update=":frmPesquisa:confirmacaoExclusaoDialog" />
+					<p:button icon="ui-icon-pencil" title="Editar" outcome="/associados/CadastroAssociado" />
+					<p:commandButton icon="ui-icon-alert" title="Ativar/Desativar" oncomplete="PF('confirmacaoExclusao').show();" process="@this" update=":frmPesquisa:confirmacaoExclusaoDialog" >
+<!-- 						Quando clicar no botão Excluir de um determinado item, a linha com os dados do produto será atribuido a "pesquisaProdutoBean.produtoSelecionado" -->
+<!-- 						<f:setPropertyActionListener value="#{produto}" target="#{pesquisaProdutoBean.produtoSelecionado}" /> -->
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<!-- 	Sessao - Mais informações -->
+			<p:dialog header="Dados do Associado" widgetVar="dadosAssociado" resizable="false" modal="true" 
+				showEffect="bounce" hideEffect="scale" id="dialogEndereco" width="30%"  style="align: center;" >
+				<h:panelGroup id="dadosAssocioadoPanel">
+					<p:messages />
+					<h:panelGrid columns="4" >
+						<p:outputLabel value="Nome: " for="nomeAssociado" styleClass="labelDadosAssociados" />
+						<h:outputText id="nomeAssociado" value="Claiton Neri Didoné" size="50" />
+
+						<p:outputLabel value="Situação: " for="situacaoAssociado" styleClass="labelDadosAssociados" />
+						<h:outputText id="situacaoAssociado" value="INATIVO" />
+
+						<p:outputLabel value="Data Nasc.:" for="nascAssociado" styleClass="labelDadosAssociados" />
+						<h:outputText id="nascAssociado" value="10/07/1986" />
+						
+						<p:outputLabel value="Sexo:" for="sexoAssociado" styleClass="labelDadosAssociados" />
+						<h:outputText id="sexoAssociado" value="MASCULINO" />
+						
+						<p:outputLabel value="C.P.F.:" for="cpfAssociado" styleClass="labelDadosAssociados" />
+						<h:outputText id="cpfAssociado" value="123.456.789-01" />
+
+						<p:outputLabel value="R.G.:" for="rgAssociado" styleClass="labelDadosAssociados" />
+						<h:outputText id="rgAssociado" value="0.123.456-7" />
+						
+						<p:outputLabel value="Naturalidade:" for="naturalAssociado" 	styleClass="labelDadosAssociados" />
+						<h:outputText id="naturalAssociado" value="Palmas / PR" />
+						
+						<h:outputText value="" />	
+						<h:outputText value="" />
+						<p:separator style="width: 95px;" />
+						<p:separator style="width: 165px;" />
+						<p:separator style="width: 95px;" />
+						<p:separator style="width: 165px;" />
+
+						<p:outputLabel value="Logradouro: " for="logradouroAssociado" styleClass="labelDadosAssociados" />
+						<h:outputText id="logradouroAssociado" value="Prof. Vergílio Ferreira" size="70" />
+						
+						<p:outputLabel value="Número: " for="numeroAssociado" styleClass="labelDadosAssociados" />
+						<h:outputText id="numeroAssociado" value="957 " size="50" />
+
+						<p:outputLabel value="Bairro: " for="bairroAssociado" styleClass="labelDadosAssociados" />
+						<h:outputText id="bairroAssociado" value="Santuário" size="50" />
+						
+						<p:outputLabel value="Cidade:" for="cidadeAssociado" styleClass="labelDadosAssociados" />
+						<h:outputText id="cidadeAssociado" value="Palmas / PR" />
+
+						<p:outputLabel value="E-mail: " for="emailAssociado" styleClass="labelDadosAssociados" />
+						<h:outputText id="emailAssociado" value="claitondidone@gmail.com" size="50" />
+						
+						<p:outputLabel value="Tel. Res.: " for="telResAssociado" styleClass="labelDadosAssociados" />
+						<h:outputText id="telResAssociado" value="(46) 3263 1385" size="50" />
+
+						<p:outputLabel value="Tel. Com.: " for="telComAssociado" styleClass="labelDadosAssociados" />
+						<h:outputText id="telComAssociado" value="(46) 3263 1166" size="50" />
+						
+						<p:outputLabel value="Celular: " for="telCelAssociado" styleClass="labelDadosAssociados" />
+						<h:outputText id="telCelAssociado" value="(46) 9920 8768" size="50" />
+
+						<p:separator />
+						<p:separator />
+						<p:separator />
+						<p:separator />
+					</h:panelGrid>
+
+					<h:panelGrid columns="2">
+						<p:dataTable id="dependentesTable"
+							value="#{dependetesBean.dependentesFiltrados}" var="dependentes"
+							emptyMessage="Não há dependentes." rows="4" paginator="false">
+
+							<p:column headerText="Dependente">
+								<h:outputText value="Ana Tieli Dutra" />
+							</p:column>
+							<p:column headerText="Parentesco"
+								style="text-align: center; width: 150px">
+								<h:outputText value="Cônjuge" />
+							</p:column>
+						</p:dataTable>
+					</h:panelGrid>
+				</h:panelGroup>
+
+				<h:outputText value="" />
+				<h:outputText value="" />
+				<p:separator />
+
+				<h:panelGroup layout="block" style="padding-right: 10px"> 
+					<p:outputLabel value="Observações" style="font-weight: bold;" />
+					<p:inputTextarea rows="5" style="width: 100%; margin-top: 5px;" readonly="true" value="Este associado está de férias e retorna somente dia 01/01/2016" />
+				</h:panelGroup>
+				
+				<p:separator style="margin-bottom: 10px;" />
+				<p:button value="Fechar" id="botaoFechar" onclick="PF('dadosAssociado').hide(); return false;" />
+			</p:dialog>
+
+			<!--  Função para chamar a tela de exclusão de Associados  -->
+			<p:confirmDialog header="Exclusão de produto"
+				message="Tem certeza que deseja desativar o associado TAL?"
+				id="confirmacaoExclusaoDialog" widgetVar="confirmacaoExclusao"
+				showEffect="shake ">
+				<p:button value="Não"
+					onclick="PF('confirmacaoExclusao').hide(); return false;" />
+				<p:commandButton value="Sim"
+					oncomplete="PF('confirmacaoExclusao').hide();"
+					update=":frmPesquisa:associadosTable" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

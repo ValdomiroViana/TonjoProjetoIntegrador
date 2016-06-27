@@ -1,0 +1,102 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:panelGrid columns="8" style="width: 100%;" columnClasses="rotulo, campo, rotulo, rotulo, rotulo, rotulo, rotulo">
+		
+		<p:outputLabel value="Nome" for="nomeDep1" />
+		<p:inputText size="50" id="nomeDep1" style="width: 98%;" value="#{cadastroAssociadoBean.dependente1.pessoa.nome}" />
+
+		<p:outputLabel value="Data de Nasc." for="dataNascDep1" />
+		<p:calendar id="dataNascDep1" size="10" pattern="dd/MM/yyyy" mask="99/99/9999" value="#{cadastroAssociadoBean.dependente1.pessoa.dataNascimento}" />
+
+		<p:outputLabel value="Sexo" for="sexoDependente1" />
+		<p:selectOneMenu id="sexoDependente1" style="width: 130px;" value="#{cadastroAssociadoBean.dependente1.pessoa.sexo}" >
+			<f:selectItem itemLabel="Selecione o sexo" />
+			<f:selectItem itemLabel="Masculino" itemValue="MASCULINO"  />
+			<f:selectItem itemLabel="Feminino" itemValue="FEMININO"  />
+		</p:selectOneMenu>
+
+		<p:outputLabel value="Parentesco"  for="parentesco1" />
+		<p:selectOneMenu id="parentesco1" style="width: 130px;" value="#{cadastroAssociadoBean.dependente1.parentesco}" >
+			<f:selectItem itemLabel="Selecione o parentesco" />
+			<f:selectItem itemLabel="Irmão(a)" itemValue="Irmão(a)" />
+			<f:selectItem itemLabel="Filho(a)" itemValue="Filho(a)"  />
+			<f:selectItem itemLabel="Cônjuge" itemValue="Cônjuge" />
+		</p:selectOneMenu>
+
+
+
+
+		<p:outputLabel value="Nome" for="nomeDep2" />
+		<p:inputText id="nomeDep2" size="50" style="width: 98%;" value="#{cadastroAssociadoBean.dependente2.pessoa.nome}" />
+
+		<p:outputLabel value="Data de Nasc." for="dataNascDep2" />
+		<p:calendar id="dataNascDep2" size="10" pattern="dd/MM/yyyy" mask="99/99/9999" value="#{cadastroAssociadoBean.dependente2.pessoa.dataNascimento}" />
+
+		<p:outputLabel value="Sexo" for="sexoDependente2" />
+		<p:selectOneMenu id="sexoDependente2" style="width: 130px;" value="#{cadastroAssociadoBean.dependente2.pessoa.sexo}" >
+			<f:selectItem itemLabel="Selecione o sexo" />
+			<f:selectItem itemLabel="Masculino" itemValue="MASCULINO"  />
+			<f:selectItem itemLabel="Feminino" itemValue="FEMININO"   />
+		</p:selectOneMenu>
+
+		<p:outputLabel value="Parentesco" for="parentesco2" />
+		<p:selectOneMenu id="parentesco2" style="width: 130px;" value="#{cadastroAssociadoBean.dependente2.parentesco}" >
+			<f:selectItem itemLabel="Selecione o parentesco" />
+			<f:selectItem itemLabel="Irmão(a)" itemValue="Irmão(a)" />
+			<f:selectItem itemLabel="Filho(a)" itemValue="Filho(a)"  />
+			<f:selectItem itemLabel="Cônjuge" itemValue="Cônjuge" />
+		</p:selectOneMenu>
+
+
+
+
+		<p:outputLabel value="Nome" for="nomeDep3" />
+		<p:inputText id="nomeDep3" size="50" style="width: 98%;" value="#{cadastroAssociadoBean.dependente3.pessoa.nome}" />
+
+		<p:outputLabel value="Data de Nasc." for="dataNascDep3" />
+		<p:calendar id="dataNascDep3" size="10" pattern="dd/MM/yyyy" mask="99/99/9999" value="#{cadastroAssociadoBean.dependente3.pessoa.dataNascimento}" />
+
+		<p:outputLabel value="Sexo" for="sexoDependente3" />
+		<p:selectOneMenu id="sexoDependente3" style="width: 130px;" value="#{cadastroAssociadoBean.dependente3.pessoa.sexo}" >
+			<f:selectItem itemLabel="Selecione o sexo" />
+			<f:selectItem itemLabel="Masculino" itemValue="MASCULINO"  />
+			<f:selectItem itemLabel="Feminino" itemValue="FEMININO"   />
+		</p:selectOneMenu>
+
+		<p:outputLabel value="Parentesco" for="parentesco3" />
+		<p:selectOneMenu id="parentesco3" style="width: 130px;" value="#{cadastroAssociadoBean.dependente3.parentesco}" >
+			<f:selectItem itemLabel="Selecione o parentesco" />
+			<f:selectItem itemLabel="Irmão(a)" itemValue="Irmão(a)" />
+			<f:selectItem itemLabel="Filho(a)" itemValue="Filho(a)"  />
+			<f:selectItem itemLabel="Cônjuge" itemValue="Cônjuge" />
+		</p:selectOneMenu>
+		
+		
+		
+		
+		<p:outputLabel value="Nome" for="nomeDep4" />
+		<p:inputText id="nomeDep4" size="50" style="width: 98%;" value="#{cadastroAssociadoBean.dependente4.pessoa.nome}" />
+
+		<p:outputLabel value="Data de Nasc." for="dataNascDep4" />
+		<p:calendar id="dataNascDep4" size="10" pattern="dd/MM/yyyy" mask="99/99/9999" value="#{cadastroAssociadoBean.dependente4.pessoa.dataNascimento}" />
+
+		<p:outputLabel value="Sexo" for="sexoDependente4" />
+		<p:selectOneMenu id="sexoDependente4" style="width: 130px;" value="#{cadastroAssociadoBean.dependente4.pessoa.sexo}" >
+			<f:selectItem itemLabel="Selecione o sexo" />
+			<f:selectItem itemLabel="Masculino" itemValue="MASCULINO"  />
+			<f:selectItem itemLabel="Feminino" itemValue="FEMININO"   />
+		</p:selectOneMenu>
+
+		<p:outputLabel value="Parentesco" for="parentesco4" />
+		<p:selectOneMenu id="parentesco4" style="width: 130px;" value="#{cadastroAssociadoBean.dependente4.parentesco}" >
+			<f:selectItem itemLabel="Selecione o parentesco" />
+			<f:selectItem itemLabel="Irmão(a)" itemValue="Irmão(a)" />
+			<f:selectItem itemLabel="Filho(a)" itemValue="Filho(a)"  />
+			<f:selectItem itemLabel="Cônjuge" itemValue="Cônjuge" />
+		</p:selectOneMenu>
+	</p:panelGrid>
+</ui:composition>
